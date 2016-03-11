@@ -53,8 +53,20 @@ export default class AddItem extends React.Component {
       }
     }
     // console.log("column value:"+this.state.column);
-
   }
+
+  onDelete(itemToDelete, column) {
+    // console.log(itemToDelete + " | column: "+ column);
+    // console.log("item-index: "+this.state.itemColumn1.length);
+    if (column=='1') {
+      this.state.itemColumn1.splice(itemToDelete, 1);
+      this.setState({ itemColumn1: this.state.itemColumn1 });
+    }else{
+      this.state.itemColumn2.splice(itemToDelete, 1);
+      this.setState({ itemColumn2: this.state.itemColumn2 });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -81,9 +93,12 @@ export default class AddItem extends React.Component {
           </div>
         </div>
 
-        <Column1 items={this.state.itemColumn1}/>
-        <Column2 items={this.state.itemColumn2} />
-
+        <Column1
+          items={this.state.itemColumn1}
+          deleteItem={this.onDelete.bind(this)}/>
+        <Column2
+          items={this.state.itemColumn2}
+          deleteItem={this.onDelete.bind(this)}/>
       </div>
 
     );

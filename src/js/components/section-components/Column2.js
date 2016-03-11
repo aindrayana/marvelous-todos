@@ -2,19 +2,23 @@ import React from "react";
 
 export default class Column2 extends React.Component {
   render() {
+    var that = this;
     var createItem = function(item, index) {
       var isOdd = (index % 2 == 0 ? "bg-odd" : "");
       return (
         <div class={"column "+(isOdd)} key={index}>
           <div class="column-odd">{item.text}
-            <button type="button" class="btn btn-delete pull-right">x</button></div>
+            <button
+              onClick={that.props.deleteItem.bind(this, index, "2")}
+              type="button"
+              class="btn btn-delete pull-right">x</button></div>
         </div>
       )
     }
     return (
       <div class="col-sm-4 item-column">
         <div class="column-header text-center">COLUMN 2</div>
-          { this.props.items.map(createItem) }
+        { this.props.items.map(createItem) }
       </div>
     );
   }
