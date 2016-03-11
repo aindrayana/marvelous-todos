@@ -1,21 +1,76 @@
 import React from "react";
 
+import Column1 from "./Column1";
+import Column2 from "./Column2";
+
 export default class AddItem extends React.Component {
+
+  constructor() {
+    super();
+    this.render = this.render.bind(this);
+    this.state = {
+      text: '',
+      column: '',
+      itemColumn1: [],
+      itemColumn2: []
+    };
+  }
+
+  onChange(e) {
+    // console.log("text: "+e.target.value);
+    this.setState({text: e.target.value});
+  }
+
+  onSelect(e) {
+    // console.log("column: "+e.target.value);
+    this.setState({column: e.target.value});
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    // console.log("handleSubmit-text: "+this.state.text);
+    if (this.state.column=='column1') {
+      if (this.state.text) {
+        var nextItems = this.state.itemColumn1.concat([{
+          text: this.state.text
+        }]);
+        this.setState({
+          itemColumn1: nextItems,
+          column: "CHOOSE COLUMN",
+          text: ""
+        });
+      }
+    }else{
+      if (this.state.text) {
+        var nextItems = this.state.itemColumn2.concat([{
+          text: this.state.text
+        }]);
+        this.setState({
+          itemColumn2: nextItems,
+          column: "CHOOSE COLUMN",
+          text: ""
+        });
+      }
+    }
+    // console.log("column value:"+this.state.column);
+
+  }
   render() {
     return (
-
       <div>
         <div class="col-sm-4 add-search">
           <div class="add-item">
-            <form>
-              <input type="text" placeholder="ENTER ITEM" />
-              <select>
+            <form onSubmit={ this.handleSubmit.bind(this) }>
+              <input type="text" placeholder="ENTER ITEM"
+                 onChange={ this.onChange.bind(this) } value={ this.state.text }/>
+              <select
+                onChange={ this.onSelect.bind(this) } value={ this.state.column }>
                 <option value="" disabled selected hidden>CHOOSE COLUMN</option>
-                <option>COLUMN 1</option>
-                <option>COLUMN 2</option>
+                <option value="column1">COLUMN 1</option>
+                <option value="column2">COLUMN 2</option>
               </select>
               <div class="btn-pos">
-                <button type="button" class="btn btn-custom">ADD ITEM</button>
+                <button class="btn btn-custom">ADD ITEM</button>
               </div>
             </form>
           </div>
@@ -26,39 +81,9 @@ export default class AddItem extends React.Component {
           </div>
         </div>
 
-        <div class="col-sm-4 item-column">
-          <div class="column-header text-center">COLUMN 1</div>
-          <div class="column bg-odd">
-            <div class="column-odd">ITEM #1 <button type="button" class="btn btn-delete pull-right">x</button></div>
-          </div>
-          <div class="column">
-            <div class="column-even">ITEM #2 <button type="button" class="btn btn-delete pull-right">x</button></div>
-          </div>
-          <div class="column bg-odd">
-            <div class="column-odd">ITEM #3 <button type="button" class="btn btn-delete pull-right">x</button></div>
-          </div>
-          <div class="column">
-            <div class="column-even">ITEM #4 <button type="button" class="btn btn-delete pull-right">x</button></div>
-          </div>
-          <div class="column bg-odd">
-            <div class="column-odd">ITEM #5 <button type="button" class="btn btn-delete pull-right">x</button></div>
-          </div>
+        <Column1 items={this.state.itemColumn1}/>
+        <Column2 items={this.state.itemColumn2} />
 
-        </div>
-
-
-        <div class="col-sm-4 item-column">
-          <div class="column-header text-center">COLUMN 2</div>
-          <div class="column bg-odd">
-            <div class="column-odd">ITEM #1 <button type="button" class="btn btn-delete pull-right">x</button></div>
-          </div>
-          <div class="column">
-            <div class="column-even">ITEM #2 <button type="button" class="btn btn-delete pull-right">x</button></div>
-          </div>
-          <div class="column bg-odd">
-            <div class="column-odd">ITEM #3 <button type="button" class="btn btn-delete pull-right">x</button></div>
-          </div>
-        </div>
       </div>
 
     );
