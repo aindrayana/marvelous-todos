@@ -6,6 +6,13 @@ export default class Column1 extends React.Component {
     var createItem = function(item, index) {
       var isOdd = (index % 2 == 0 ? "bg-odd" : "");
       // console.log(isOdd);
+
+      // console.log("items :"+ item.text.toLowerCase());
+      // console.log("search-items :"+ that.props.searchItem);
+      if (item.text.toLowerCase().indexOf(that.props.searchItem.toLowerCase()) === -1) {
+        return;
+      }
+
       return (
         <div class={"column "+(isOdd)} key={index}>
           <div class="column-odd">{item.text}

@@ -2,6 +2,7 @@ import React from "react";
 
 import Column1 from "./Column1";
 import Column2 from "./Column2";
+import FindItem from "./FindItem";
 
 export default class AddItem extends React.Component {
 
@@ -9,6 +10,7 @@ export default class AddItem extends React.Component {
     super();
     this.render = this.render.bind(this);
     this.state = {
+      searchItem: '',
       text: '',
       column: '',
       itemColumn1: [],
@@ -67,6 +69,14 @@ export default class AddItem extends React.Component {
     }
   }
 
+  handleSearchInput(searchItem) {
+    this.setState({searchItem});
+    // console.log("searchItem"+searchItem);
+  }
+
+// -----------------------------------------------------------------------------
+// Render ----------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   render() {
     return (
       <div>
@@ -86,18 +96,19 @@ export default class AddItem extends React.Component {
               </div>
             </form>
           </div>
-          <div class="find-item">
-            <div class="search-label">SEARCH AN ITEM</div>
-            <span class="fa fa-search"></span>
-            <input type="text" placeholder="SEARCH" />
-          </div>
+          <FindItem
+            searchItem={this.state.searchItem}
+            onSearchInput={this.handleSearchInput.bind(this)}
+           />
         </div>
 
         <Column1
           items={this.state.itemColumn1}
+          searchItem={this.state.searchItem}
           deleteItem={this.onDelete.bind(this)}/>
         <Column2
           items={this.state.itemColumn2}
+          searchItem={this.state.searchItem}
           deleteItem={this.onDelete.bind(this)}/>
       </div>
 
