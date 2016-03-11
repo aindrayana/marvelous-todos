@@ -4,6 +4,7 @@ export default class Column1 extends React.Component {
   render() {
     var that = this;
     var createItem = function(item, index) {
+      // console.log("key:"+item['.key']);
       var isOdd = (index % 2 == 0 ? "bg-odd" : "");
       // console.log(isOdd);
 
@@ -17,7 +18,7 @@ export default class Column1 extends React.Component {
         <div class={"column "+(isOdd)} key={index}>
           <div class="column-odd">{item.text}
             <button
-              onClick={that.props.deleteItem.bind(this, index, "1")}
+              onClick={that.props.deleteItem.bind(this, index, "1", item['.key'])}
               type="button"
               class="btn btn-delete pull-right">x</button></div>
         </div>

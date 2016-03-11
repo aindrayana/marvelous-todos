@@ -35,6 +35,7 @@ export default class Items extends React.Component {
             id: data.val().column1.id,
             text: data.val().column1.text
           }
+          dataColumn1['.key'] = data.key();
           dataCol1.push(dataColumn1);
           // console.log(dataCol1);
           that.setState({itemColumn1: dataCol1});
@@ -45,12 +46,17 @@ export default class Items extends React.Component {
             id: data.val().column2.id,
             text: data.val().column2.text
           }
+          dataColumn2['.key'] = data.key();
           dataCol2.push(dataColumn2);
           // console.log(dataCol1);
           that.setState({itemColumn2: dataCol2});
         }
       });
     })
+  }
+
+  componentWillUnmount() {
+    this.firebaseRef.off();
   }
 
   onChange(e) {
@@ -97,13 +103,12 @@ export default class Items extends React.Component {
     // console.log("column value:"+this.state.column);
   }
 
-  onDelete(itemToDelete, column) {
+  onDelete(itemToDelete, column, key) {
+    // console.log("key:"+key);
     // console.log(itemToDelete + " | column: "+ column);
-    // console.log("item-index: "+this.state.itemColumn1.length);
-    // var firebaseRef = new Firebase('https://ReactFireTodoApp.firebaseio.com/items/');
-    // firebaseRef.child(key).remove();
+    // console.log(this.firebaseRef.child(key));
+    this.firebaseRef.child(key).remove();
     if (column=='1') {
-      // console.log(firebaseRef.child('column1'));
       this.state.itemColumn1.splice(itemToDelete, 1);
       this.setState({ itemColumn1: this.state.itemColumn1 });
     }else{

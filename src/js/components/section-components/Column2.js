@@ -12,7 +12,7 @@ export default class Column2 extends React.Component {
         <div class={"column "+(isOdd)} key={index}>
           <div class="column-odd">{item.text}
             <button
-              onClick={that.props.deleteItem.bind(this, index, "2")}
+              onClick={that.props.deleteItem.bind(this, index, "2", item['.key'])}
               type="button"
               class="btn btn-delete pull-right">x</button></div>
         </div>
