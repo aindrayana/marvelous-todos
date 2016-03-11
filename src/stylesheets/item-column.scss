@@ -1,0 +1,33 @@
+.item-column {
+  .column-header {
+    background: #999;
+    color: #fff;
+    padding: 10px;
+  }
+  .column {
+    padding: 10px;
+  }
+  .bg-odd {
+    background: #F2F3F4;
+  }
+  .column-odd, .column-even {
+    position: relative;
+    padding: 10px 0;
+  }
+  .column .btn-delete {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    background-color: #fff !important;
+    border: 2px solid #999 !important;
+    border-radius: 25% !important;
+    padding: 5px 10px !important;
+    width: auto;
+    &:hover {
+      background-color: #ccc !important;
+    }
+    &:focus {
+      color: #999;
+    }
+  }
+}
