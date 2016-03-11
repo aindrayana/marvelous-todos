@@ -24,7 +24,7 @@ export default class Column1 extends React.Component {
       )
     }
     return (
-      <div class="col-sm-4 item-column">
+      <div class="col-md-4 col-sm-12 item-column">
         <div class="column-header text-center">COLUMN 1</div>
         { this.props.items.map(createItem) }
       </div>

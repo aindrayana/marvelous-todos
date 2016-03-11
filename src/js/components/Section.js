@@ -1,7 +1,7 @@
 import React from "react";
 
 import Title from "./section-components/Title";
-import AddItem from "./section-components/AddItem";
+import Items from "./section-components/Items";
 
 export default class Section extends React.Component {
   render() {
@@ -11,7 +11,7 @@ export default class Section extends React.Component {
           <div class="row">
             <div class="item-content">
               <Title />
-              <AddItem />
+              <Items />
             </div>
           </div>
         </div>

@@ -1,10 +1,13 @@
 import React from "react";
+import Reactfire from "reactfire";
+import Firebase from "firebase";
 
 import Column1 from "./Column1";
 import Column2 from "./Column2";
 import FindItem from "./FindItem";
 
-export default class AddItem extends React.Component {
+
+export default class Items extends React.Component {
 
   constructor() {
     super();
@@ -16,6 +19,38 @@ export default class AddItem extends React.Component {
       itemColumn1: [],
       itemColumn2: []
     };
+  }
+
+  componentWillMount() {
+    var that = this;
+    this.firebaseRef = new Firebase('https://marvelous.firebaseio.com/items');
+    this.firebaseRef.once('value', function(snapshot){
+      var dataCol1 = [];
+      var dataCol2 = [];
+      snapshot.forEach(function(data){
+        // Populating data column 1 -----------------
+        if (data.val().column1) {
+          // console.log(data.val().column1);
+          var dataColumn1 = {
+            id: data.val().column1.id,
+            text: data.val().column1.text
+          }
+          dataCol1.push(dataColumn1);
+          // console.log(dataCol1);
+          that.setState({itemColumn1: dataCol1});
+        }
+        // Populating data column 2 -----------------
+        if (data.val().column2) {
+          var dataColumn2 = {
+            id: data.val().column2.id,
+            text: data.val().column2.text
+          }
+          dataCol2.push(dataColumn2);
+          // console.log(dataCol1);
+          that.setState({itemColumn2: dataCol2});
+        }
+      });
+    })
   }
 
   onChange(e) {
@@ -33,22 +68,27 @@ export default class AddItem extends React.Component {
     // console.log("handleSubmit-text: "+this.state.text);
     if (this.state.column=='column1') {
       if (this.state.text) {
-        var nextItems = this.state.itemColumn1.concat([{
+        var column1 = {
+          id: this.state.itemColumn1.length+1,
           text: this.state.text
-        }]);
+        };
+        this.firebaseRef.push({column1});
         this.setState({
-          itemColumn1: nextItems,
+          itemColumn1: this.state.itemColumn1.concat(column1),
           column: "CHOOSE COLUMN",
           text: ""
         });
       }
-    }else{
+    } else {
       if (this.state.text) {
-        var nextItems = this.state.itemColumn2.concat([{
+        var column2 = {
+          id: this.state.itemColumn2.length+1,
           text: this.state.text
-        }]);
+        };
+        this.firebaseRef.push({column2});
         this.setState({
-          itemColumn2: nextItems,
+          itemColumn2: this.state.itemColumn2.concat(column2),
+          // itemColumn2: nextItems,
           column: "CHOOSE COLUMN",
           text: ""
         });
@@ -60,7 +100,10 @@ export default class AddItem extends React.Component {
   onDelete(itemToDelete, column) {
     // console.log(itemToDelete + " | column: "+ column);
     // console.log("item-index: "+this.state.itemColumn1.length);
+    // var firebaseRef = new Firebase('https://ReactFireTodoApp.firebaseio.com/items/');
+    // firebaseRef.child(key).remove();
     if (column=='1') {
+      // console.log(firebaseRef.child('column1'));
       this.state.itemColumn1.splice(itemToDelete, 1);
       this.setState({ itemColumn1: this.state.itemColumn1 });
     }else{
@@ -80,7 +123,7 @@ export default class AddItem extends React.Component {
   render() {
     return (
       <div>
-        <div class="col-sm-4 add-search">
+        <div class="col-md-4 col-sm-12 add-search">
           <div class="add-item">
             <form onSubmit={ this.handleSubmit.bind(this) }>
               <input type="text" placeholder="ENTER ITEM"
