@@ -9,7 +9,6 @@ body {
 
 .border {border: 1px solid;}
 
-/* Header ------------------------------------------------------------------ */
   header {
     color: white;
     margin-bottom: 20px;
@@ -26,7 +25,6 @@ body {
     width: 40%;
   }
 
-/* Section General --------------------------------------------------------- */
   section {
     background: #fff;
     padding: 20px 50px 50px;
@@ -39,7 +37,6 @@ body {
       margin-bottom: 40px;
     }
 
-    /* ADD-ITEM SECTION ---------------------------------------------------- */
     section input[type="text"],
     section select,
     section button {
@@ -76,7 +73,6 @@ body {
       margin-top: 50px;
     }
 
-    /* SEARCH ITEM SECTION ------------------------------------------------- */
     section .find-item {
       margin-top: 50px;
       position: relative;
@@ -98,7 +94,6 @@ body {
       font-size: 18px;
     }
 
-    /* COLUMN -------------------------------------------------------------- */
     .item-column .column-header {
       background: #999;
       color: #fff;
