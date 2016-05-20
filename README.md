@@ -1,5 +1,5 @@
 # Marvelous-Todos
-Mini project with React
+Mini project with React, Webpack and Firebase
 
 ## Hierarchy of the components:
 - Header
